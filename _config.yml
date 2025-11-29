@@ -12,7 +12,7 @@ timezone: Europe/Istanbul
 # SEO + SITE INFO
 # ==============================
 
-title: "Vurulkan Blog"
+title: "M.Volkan's Blog"
 tagline: "DevOps, Linux, Kubernetes, Infrastructure Notes"
 
 description: >-
@@ -35,7 +35,7 @@ twitter:
 
 social:
   name: "Mustafa Volkan Vurulkan"
-  email: ""
+  email: "mustafa@vurulkan.com"
   links:
     - https://github.com/vurulkan
     - https://www.linkedin.com/in/vurulkan/
@@ -65,7 +65,7 @@ webmaster_verifications:
 
 analytics:
   google:
-    id: ""      # GA4 ID (G-XXXXX)
+    id: "G-P5XNHV0F77"
   goatcounter:
     id:
   umami:
