@@ -1,0 +1,37 @@
+/* CATEGORY & TAG CARD STYLE */
+
+.categories .list-taxonomies,
+.tags .list-taxonomies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.list-taxonomies .taxonomy {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 14px 16px;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+  transition: 0.15s ease;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.list-taxonomies .taxonomy:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.list-taxonomies .taxonomy a {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* SIDEBAR AVATAR STYLE */
+
+.sidebar .site-avatar img {
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.15);
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
+}
+

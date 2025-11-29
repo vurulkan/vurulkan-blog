@@ -21,6 +21,8 @@ toc: true
 **Model:** Lenovo ThinkPad E490 (Type: 20N8)  
 **Status:** Fully working daily-driver configuration
 
+[Show project on GitHub](https://github.com/vurulkan/Lenovo-Thinkpad-E490-20N8-Hackintosh)
+
 ---
 
 ## 📦 Device Specifications

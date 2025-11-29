@@ -40,12 +40,14 @@ kubectl create secret generic sftp-secret --from-file=id_rsa=./path/to/privateke
 ```bash
 cat path/to/publickey >> /home/$USER/.ssh/authorized_keys
 ```
+
 | Example Public Key  | Example Private Key |
 | ------------- | ------------- |
 | ssh-ed25519 AAAAC... mustafav@vurulkan.local  | -----BEGIN OPENSSH PRIVATE KEY----- b3BlbnNzaC1... -----END OPENSSH PRIVATE KEY-----  |
 
+
 ## 📦 Deploying Kubernetes Resources
-#### Apply the Service Account:
+#### Apply the Service Account
 
 ```bash
 kubectl apply -f kubernetes-service-account.yaml -n yournamespace
