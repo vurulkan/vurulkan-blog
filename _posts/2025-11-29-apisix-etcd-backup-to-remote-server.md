@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes CronJob for APISIX ETCD Backup"
 date: 2025-11-29 21:00:00 +0300
-categories: [devops, kubernetes, automation]
+categories: [DevOps, Kubernetes, Automation]
 tags: [k8s, ansible, kubernetes, apisix, api gateway, bash]
 toc: true
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes HA Cluster Deployment on Ubuntu Using Ansible"
 date: 2025-11-28 22:00:00 +0300
-categories: [devops, kubernetes, automation]
+categories: [DevOps, Kubernetes, Automation]
 tags: [k8s, ansible, kubernetes]
 toc: true
 ---
