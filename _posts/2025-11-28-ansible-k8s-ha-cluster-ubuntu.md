@@ -12,7 +12,7 @@ This document describes how to deploy a highly available (HA) Kubernetes cluster
 
 The goal is to provide a repeatable, production‑oriented procedure that can be used by operations and platform teams.
 
-[Show project on GitHub](https://github.com/vurulkan/ansible-k8s-ha-cluster-ubuntu)
+[Show project on GitHub](https://github.com/vurulkan/ansible-k8s-ha-cluster-ubuntu{target=_blank})
 
 ---
 ## 1. Overview

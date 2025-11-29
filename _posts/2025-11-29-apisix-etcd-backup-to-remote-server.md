@@ -9,7 +9,7 @@ toc: true
 # 🚀 Kubernetes CronJob for APISIX ETCD Backup
 
 This guide explains how to configure a **Kubernetes CronJob** to back up APISIX's **ETCD data** and transfer it to a remote server via SSH.
-[Show project on GitHub](https://github.com/vurulkan/kubernetes/tree/main/apisix-etcd-backup-to-remote-server)
+[Show project on GitHub](https://github.com/vurulkan/kubernetes/tree/main/apisix-etcd-backup-to-remote-server{target=_blank})
 
 ## 🛠️ Configuration
 
