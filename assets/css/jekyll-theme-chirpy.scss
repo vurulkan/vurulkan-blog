@@ -9,40 +9,40 @@
 ';
 
 
-/* CATEGORY & TAG CARD STYLE */
-
-.categories .list-taxonomies,
-.tags .list-taxonomies {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
-}
-
-.list-taxonomies .taxonomy {
+/* CATEGORY CARD STYLE */
+.card.categories {
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.05);
-  padding: 14px 16px;
-  border-radius: 10px;
-  backdrop-filter: blur(4px);
-  transition: 0.15s ease;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  margin-bottom: 22px;
+  transition: 0.2s ease;
 }
 
-.list-taxonomies .taxonomy:hover {
-  background: rgba(255, 255, 255, 0.12);
+.card.categories:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-3px);
-  border-color: rgba(255,255,255,0.2);
 }
 
-.list-taxonomies .taxonomy a {
+.card.categories .card-header a {
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
-/* SIDEBAR AVATAR STYLE */
+.card.categories .list-group-item {
+  background: transparent !important;
+  border: none !important;
+  padding-left: 32px;
+}
 
-.sidebar .site-avatar img {
+.card.categories .list-group-item a {
+  font-weight: 500;
+}
+
+/* SIDEBAR AVATAR */
+#avatar img {
   border-radius: 50%;
   border: 2px solid rgba(255,255,255,0.15);
   box-shadow: 0 0 12px rgba(0,0,0,0.4);
 }
-
