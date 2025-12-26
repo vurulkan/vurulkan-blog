@@ -4,10 +4,21 @@ permalink: /sitemap.xml
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{% for post in site.posts %}
+
+  <!-- BLOG POSTS -->
+  {% for post in site.posts %}
   <url>
     <loc>{{ site.url }}{{ post.url }}</loc>
     <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
   </url>
-{% endfor %}
+  {% endfor %}
+
+  <!-- STATIC PAGES (WHITELIST) -->
+  {% assign static_pages = site.pages | where: "sitemap", true %}
+  {% for page in static_pages %}
+  <url>
+    <loc>{{ site.url }}{{ page.url }}</loc>
+  </url>
+  {% endfor %}
+
 </urlset>
