@@ -21,9 +21,16 @@ description: >-
 
 url: "https://blog.vurulkan.com" 
 baseurl: ""
+
 plugins:
   - jekyll-sitemap
-
+sitemap:
+  exclude:
+    - "/tags/"
+    - "/tags/**"
+    - "/categories/"
+    - "/categories/**"
+    - "/archives/"
 
 # --------------------------------
 # DISABLE TAG & CATEGORY PAGES
