@@ -60,11 +60,6 @@ webmaster_verifications:
   baidu:
   facebook:
 
-tag:
-  enabled: false
-
-category:
-  enabled: false
 
 # ==============================
 # ANALYTICS
@@ -232,11 +227,11 @@ exclude:
 # ARCHIVES (CATEGORIES & TAGS)
 # ==============================
 
-#jekyll-archives:
-#  enabled: [categories, tags]
-#  layouts:
-#    category: category
-#    tag: tag
-#  permalinks:
-#    tag: /tags/:name/
-#    category: /categories/:name/
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
