@@ -25,6 +25,30 @@ plugins:
   - jekyll-sitemap
 
 
+# --------------------------------
+# DISABLE TAG & CATEGORY PAGES
+# --------------------------------
+tag:
+  enabled: false
+
+category:
+  enabled: false
+
+# --------------------------------
+# EXCLUDE TAGS & CATEGORIES FROM SITEMAP
+# --------------------------------
+defaults:
+  - scope:
+      path: "tags"
+    values:
+      sitemap: false
+
+  - scope:
+      path: "categories"
+    values:
+      sitemap: false
+
+
 # ==============================
 # SOCIAL / PROFILE
 # ==============================
