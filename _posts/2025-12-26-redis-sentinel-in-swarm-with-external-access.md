@@ -1,10 +1,9 @@
 ---
 title: "Setting Up a Redis Sentinel Cluster on Docker Swarm with External Access"
-date: 2025-11-30 02:00:00 +0300
+date: 2025-12-26 02:00:00 +0300
 categories: [DevOps, Docker]
 tags: [redis, docker, swarm, docker swarm]
 toc: true
-published: false
 ---
 
 # Setting Up a Redis Sentinel Cluster on Docker Swarm with External Access
