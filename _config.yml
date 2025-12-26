@@ -60,6 +60,11 @@ webmaster_verifications:
   baidu:
   facebook:
 
+tag:
+  enabled: false
+
+category:
+  enabled: false
 
 # ==============================
 # ANALYTICS
