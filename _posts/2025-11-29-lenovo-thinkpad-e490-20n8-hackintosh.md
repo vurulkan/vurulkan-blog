@@ -4,6 +4,8 @@ date: 2025-11-29 21:00:00 +0300
 categories: [MacOS, Hackintosh]
 tags: [lenovo, macos, hackintosh, opencore]
 toc: true
+published: true
+robots: index, follow
 ---
 
 > **Disclaimer**  

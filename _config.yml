@@ -21,6 +21,8 @@ description: >-
 
 url: "https://blog.vurulkan.com" 
 baseurl: ""
+plugins:
+  - jekyll-sitemap
 
 
 # ==============================
@@ -172,7 +174,8 @@ defaults:
       layout: post
       comments: false
       toc: true
-      permalink: /posts/:title/
+#      permalink: /posts/:title/
+      permalink: /:year/:month/:day/:title/
 
   - scope:
       path: _drafts
@@ -224,11 +227,11 @@ exclude:
 # ARCHIVES (CATEGORIES & TAGS)
 # ==============================
 
-jekyll-archives:
-  enabled: [categories, tags]
-  layouts:
-    category: category
-    tag: tag
-  permalinks:
-    tag: /tags/:name/
-    category: /categories/:name/
+#jekyll-archives:
+#  enabled: [categories, tags]
+#  layouts:
+#    category: category
+#    tag: tag
+#  permalinks:
+#    tag: /tags/:name/
+#    category: /categories/:name/
