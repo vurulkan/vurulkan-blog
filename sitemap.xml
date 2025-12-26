@@ -13,11 +13,19 @@ permalink: /sitemap.xml
   </url>
   {% endfor %}
 
-  <!-- STATIC PAGES (WHITELIST) -->
+  <!-- STATIC PAGES (PAGES) -->
   {% assign static_pages = site.pages | where: "sitemap", true %}
   {% for page in static_pages %}
   <url>
     <loc>{{ site.url }}{{ page.url }}</loc>
+  </url>
+  {% endfor %}
+
+  <!-- CHIRPY TABS (ABOUT, ETC.) -->
+  {% assign tab_pages = site.tabs | where: "sitemap", true %}
+  {% for tab in tab_pages %}
+  <url>
+    <loc>{{ site.url }}{{ tab.url }}</loc>
   </url>
   {% endfor %}
 
