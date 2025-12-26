@@ -22,38 +22,38 @@ description: >-
 url: "https://blog.vurulkan.com" 
 baseurl: ""
 
-plugins:
-  - jekyll-sitemap
-sitemap:
-  exclude:
-    - "/tags/"
-    - "/tags/**"
-    - "/categories/"
-    - "/categories/**"
-    - "/archives/"
+#plugins:
+#  - jekyll-sitemap
+#sitemap:
+#  exclude:
+#    - "/tags/"
+#    - "/tags/**"
+#    - "/categories/"
+#    - "/categories/**"
+#    - "/archives/"
 
 # --------------------------------
 # DISABLE TAG & CATEGORY PAGES
 # --------------------------------
-tag:
-  enabled: false
-
-category:
-  enabled: false
-
+#tag:
+#  enabled: false
+#
+#category:
+#  enabled: false
+#
 # --------------------------------
 # EXCLUDE TAGS & CATEGORIES FROM SITEMAP
 # --------------------------------
-defaults:
-  - scope:
-      path: "tags"
-    values:
-      sitemap: false
-
-  - scope:
-      path: "categories"
-    values:
-      sitemap: false
+#defaults:
+#  - scope:
+#      path: "tags"
+#    values:
+#      sitemap: false
+#
+#  - scope:
+#      path: "categories"
+#    values:
+#      sitemap: false
 
 
 # ==============================
