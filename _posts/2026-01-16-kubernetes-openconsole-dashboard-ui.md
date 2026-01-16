@@ -1,6 +1,6 @@
 ---
-title: "Setting Up a Redis Sentinel Cluster on Docker Swarm with External Access"
-date: 2025-12-26 02:00:00 +0300
+title: "Kubernetes OpenConsole — a production-ready, read-only Kubernetes visibility UI"
+date: 2025-01-16 19:20:00 +0300
 categories: [DevOps, Kubernetes]
 tags: [devops, kubernetes, ui, dashboard]
 toc: true
