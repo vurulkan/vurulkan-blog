@@ -12,7 +12,7 @@ robots: index, follow
 
 Modern, production-ready Kubernetes visibility dashboard with strict application-level authorization. Runs inside Kubernetes, reads cluster data with a single high-privilege identity, and enforces access strictly in the app layer (no Kubernetes RBAC for end users).
 
-[GitHub Repo](https://github.com/vurulkan/kubernetes-openconsole/)
+[Show project on GitHub](https://github.com/vurulkan/kubernetes-openconsole){:target="_blank"}
 
 ## Highlights
 
