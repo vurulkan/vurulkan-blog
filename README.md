@@ -1,43 +1,45 @@
-# Chirpy Starter
+# Vurulkan Blog
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+Personal Jekyll / Chirpy blog at **https://blog.vurulkan.com/**.
 
-When installing the [**Chirpy**][chirpy] theme through [RubyGems.org][gem], Jekyll can only read files in the folders
-`_data`, `_layouts`, `_includes`, `_sass` and `assets`, as well as a small part of options of the `_config.yml` file
-from the theme's gem. If you have ever installed this theme gem, you can use the command
-`bundle info --path jekyll-theme-chirpy` to locate these files.
+## Publishing
 
-The Jekyll team claims that this is to leave the ball in the user’s court, but this also results in users not being
-able to enjoy the out-of-the-box experience when using feature-rich themes.
+GitHub Pages must use **Settings > Pages > Build and deployment > Source: GitHub Actions**.
+Keep **Custom domain: blog.vurulkan.com** and HTTPS enforcement enabled.
+Do not select a source branch: this repository contains Jekyll source, not a prebuilt website.
 
-To fully use all the features of **Chirpy**, you need to copy the other critical files from the theme's gem to your
-Jekyll site. The following is a list of targets:
+The `Build and Deploy` workflow is the single publishing path:
 
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
+1. Check out the full history (the last-modified hook uses Git history).
+2. Install Ruby 3.3 and the dependencies in `Gemfile.lock`.
+3. Build production HTML into `_site`, with an empty base URL for the custom domain.
+4. Run the artifact-gate regression tests, verify rendered pages, sitemap, canonical URLs and local assets, then run HTML-Proofer.
+5. Upload only `_site` and deploy that artifact to GitHub Pages.
+
+`CNAME` preserves the custom domain in the generated site. The source `.nojekyll` marker does not replace the explicit Jekyll build. Publishing this repository root from a branch would serve raw templates and make generated post URLs return 404.
+
+## Local verification
+
+Use Ruby 3.3 and Bundler. The lockfile is committed; dependency updates should be deliberate.
+
+```bash
+bundle install
+JEKYLL_ENV=production bundle exec jekyll build --destination _site
+python3 -B -m unittest discover -s tools -p 'test_*.py'
+python3 tools/verify_site.py _site
+bundle exec htmlproofer _site --disable-external
 ```
 
-To save you time, and also in case you lose some files while copying, we extract those files/configurations of the
-latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so that you can start writing in minutes.
+The artifact gate checks the current published-post convention, `_posts/YYYY-MM-DD-slug.md` -> `/posts/slug/`, including links across paginated home listings. If drafts, future-dated posts or explicit post permalinks are introduced, update the gate's expected URL inventory alongside that change.
 
-## Usage
+## Writing
 
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
+Add Markdown files under `_posts` with title, date (including timezone), description, categories and tags. Keep existing slugs stable when editing a post. For Ansible/Jinja examples, protect literal Liquid-like syntax with Liquid `raw` / `endraw` tags so Jekyll does not evaluate it.
 
-## Contributing
+Source-based guides link to the README commit used for the update. Review those repositories for newer deployment instructions before using the examples.
 
-This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
+Planning and milestone receipts: [vurulkan/milestones/vurulkan-blog](https://github.com/vurulkan/milestones/tree/main/vurulkan-blog).
 
-## License
+## Theme
 
-This work is published under [MIT][mit] License.
-
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+This site uses [Chirpy](https://github.com/cotes2020/jekyll-theme-chirpy/) under its MIT license. Local overrides live in `_includes` and `assets/css`. Theme redesign is tracked separately from publishing recovery.
