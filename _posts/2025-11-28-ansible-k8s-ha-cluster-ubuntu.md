@@ -14,6 +14,7 @@ Build a highly available Kubernetes control plane on Ubuntu using Ansible, HAPro
 
 
 [View the Ubuntu project on GitHub](https://github.com/vurulkan/ansible-k8s-ha-cluster-ubuntu).
+
 ---
 ## 1. Overview
 

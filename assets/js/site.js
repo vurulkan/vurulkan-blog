@@ -8,3 +8,14 @@ document.querySelectorAll('button.toc-trigger').forEach((button) => {
 document.querySelectorAll('#sidebar .nav-item.active > a').forEach((link) => {
   link.setAttribute('aria-current', 'page');
 });
+const labelScrollableContent = () => {
+  document.querySelectorAll('.highlight, .table-wrapper').forEach((region) => {
+    if (region.scrollWidth > region.clientWidth) {
+      region.tabIndex = 0;
+      region.setAttribute('role', 'region');
+      region.setAttribute('aria-label', region.classList.contains('highlight') ? 'Scrollable code example' : 'Scrollable table');
+    }
+  });
+};
+document.fonts.ready.then(labelScrollableContent);
+window.addEventListener('resize', labelScrollableContent);

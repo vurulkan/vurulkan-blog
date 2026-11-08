@@ -16,6 +16,7 @@ Wherever possible, operations that could be handled via Ansible Galaxy roles or 
 
 
 [View the RHEL project on GitHub](https://github.com/vurulkan/ansible-k8s-ha-cluster-rhel).
+
 ---
 ## 1. Overview
 
