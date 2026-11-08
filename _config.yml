@@ -22,38 +22,8 @@ description: >-
 url: "https://blog.vurulkan.com" 
 baseurl: ""
 
-#plugins:
-#  - jekyll-sitemap
-#sitemap:
-#  exclude:
-#    - "/tags/"
-#    - "/tags/**"
-#    - "/categories/"
-#    - "/categories/**"
-#    - "/archives/"
-
-# --------------------------------
-# DISABLE TAG & CATEGORY PAGES
-# --------------------------------
-#tag:
-#  enabled: false
-#
-#category:
-#  enabled: false
-#
-# --------------------------------
-# EXCLUDE TAGS & CATEGORIES FROM SITEMAP
-# --------------------------------
-#defaults:
-#  - scope:
-#      path: "tags"
-#    values:
-#      sitemap: false
-#
-#  - scope:
-#      path: "categories"
-#    values:
-#      sitemap: false
+# Explicit sitemap.xml and robots.txt are the only producers for these files.
+# jekyll-sitemap (a theme dependency) skips generation when source files exist.
 
 
 # ==============================

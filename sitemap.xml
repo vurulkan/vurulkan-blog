@@ -1,32 +1,39 @@
 ---
 layout: null
 permalink: /sitemap.xml
+sitemap: false
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- BLOG POSTS -->
+  <!-- Canonical posts only. Rebuilds must not manufacture modification dates. -->
   {% for post in site.posts %}
+  {% unless post.sitemap == false or post.robots contains 'noindex' %}
   <url>
-    <loc>{{ site.url }}{{ post.url }}</loc>
-    <lastmod>{{ post.date | date_to_xmlschema }}</lastmod>
+    <loc>{{ post.url | absolute_url | xml_escape }}</loc>
+    <lastmod>{{ post.last_modified_at | default: post.date | date_to_xmlschema }}</lastmod>
   </url>
+  {% endunless %}
   {% endfor %}
 
   <!-- STATIC PAGES (PAGES) -->
   {% assign static_pages = site.pages | where: "sitemap", true %}
   {% for page in static_pages %}
+  {% unless page.redirect_to or page.robots contains 'noindex' %}
   <url>
-    <loc>{{ site.url }}{{ page.url }}</loc>
+    <loc>{{ page.url | absolute_url | xml_escape }}</loc>
   </url>
+  {% endunless %}
   {% endfor %}
 
   <!-- CHIRPY TABS (ABOUT, ETC.) -->
   {% assign tab_pages = site.tabs | where: "sitemap", true %}
   {% for tab in tab_pages %}
+  {% unless tab.robots contains 'noindex' %}
   <url>
-    <loc>{{ site.url }}{{ tab.url }}</loc>
+    <loc>{{ tab.url | absolute_url | xml_escape }}</loc>
   </url>
+  {% endunless %}
   {% endfor %}
 
 </urlset>

@@ -3,9 +3,11 @@
 
 import argparse
 from html.parser import HTMLParser
+from datetime import datetime
 from pathlib import Path
 import re
 from urllib.parse import unquote, urljoin, urlsplit
+from urllib.robotparser import RobotFileParser
 import xml.etree.ElementTree as ET
 
 
@@ -20,6 +22,8 @@ class Page(HTMLParser):
         self.canonical = []
         self.links = []
         self.assets = []
+        self.robots = []
+        self.refresh = []
         self.text = []
         self.in_title = False
         self.literal_depth = 0
@@ -31,6 +35,11 @@ class Page(HTMLParser):
             self.in_title = True
         if tag in ("pre", "code", "script", "style"):
             self.literal_depth += 1
+        if tag == "meta":
+            if attrs.get("name", "").lower() in ("robots", "googlebot"):
+                self.robots.extend(re.split(r"[,;\s]+", attrs.get("content", "").lower()))
+            if attrs.get("http-equiv", "").lower() == "refresh":
+                self.refresh.append(attrs.get("content", ""))
         if tag == "a" and attrs.get("href"):
             self.links.append(attrs["href"])
         if tag == "link":
@@ -114,18 +123,50 @@ def verify(site, source):
         for url in expected:
             check(url in home_links, f"Post missing from home listings: {url}")
 
+    urls = []
     try:
         xml = (site / "sitemap.xml").read_text(encoding="utf-8")
         sitemap = ET.fromstring(xml)
         check(sitemap.tag == SITEMAP_NS + "urlset", "Sitemap must be a URL set")
         urls = [loc.text for loc in sitemap.iter(SITEMAP_NS + "loc")]
         check(bool(urls), "Sitemap is empty")
+        check(len(urls) == len(set(urls)), "Sitemap contains duplicate URLs")
         for url in urls:
-            check(bool(url) and output_path(site, url).is_file(), f"Missing sitemap target: {url}")
-        for url in expected:
+            if not url:
+                errors.append("Empty sitemap URL")
+                continue
+            check(not urlsplit(url).query and not urlsplit(url).fragment, f"Noncanonical sitemap URL: {url}")
+            path = output_path(site, url)
+            check(path.is_file(), f"Missing sitemap target: {url}")
+            if path.is_file():
+                page = Page(path.read_text(encoding="utf-8"))
+                check(page.canonical == [url], f"Noncanonical sitemap target: {url}")
+                check(not {"noindex", "none"}.intersection(page.robots), f"Noindex sitemap target: {url}")
+                check(not page.refresh, f"Redirect in sitemap: {url}")
+        for url in ["/"] + expected:
             check(SITE_URL + url in urls, f"Post missing from sitemap: {url}")
+        for entry in sitemap.findall(SITEMAP_NS + "url"):
+            lastmod = entry.findtext(SITEMAP_NS + "lastmod")
+            if lastmod:
+                try:
+                    datetime.fromisoformat(lastmod.replace("Z", "+00:00"))
+                except ValueError:
+                    errors.append(f"Invalid sitemap lastmod: {lastmod}")
     except (OSError, ET.ParseError, ValueError) as error:
         errors.append(f"Invalid sitemap: {error}")
+
+    try:
+        robots = RobotFileParser()
+        robots.parse((site / "robots.txt").read_text(encoding="utf-8").splitlines())
+        check(robots.site_maps() == [SITE_URL + "/sitemap.xml"], "Robots must declare the canonical sitemap")
+        crawl_paths = ["/", "/categories/", "/tags/"] + expected
+        crawl_paths.extend(asset for page in pages.values() for asset in page.assets
+                           if asset.startswith("/"))
+        for path in sorted(set(crawl_paths)):
+            check(robots.can_fetch("Googlebot", SITE_URL + path)
+                  and robots.can_fetch("*", SITE_URL + path), f"Robots blocks public content: {path}")
+    except OSError as error:
+        errors.append(f"Missing robots.txt: {error}")
 
     return errors
 
@@ -140,4 +181,4 @@ if __name__ == "__main__":
         for failure in failures:
             print(f"ERROR: {failure}")
         raise SystemExit(1)
-    print("Pages artifact verified: rendered home, all posts, canonicals, sitemap and local assets.")
+    print("Pages artifact verified: content, canonical sitemap, robots and assets.")

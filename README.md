@@ -32,6 +32,19 @@ bundle exec htmlproofer _site --disable-external
 
 The artifact gate checks the current published-post convention, `_posts/YYYY-MM-DD-slug.md` -> `/posts/slug/`, including links across paginated home listings. If drafts, future-dated posts or explicit post permalinks are introduced, update the gate's expected URL inventory alongside that change.
 
+## URLs and crawling
+
+Canonical posts remain at `/posts/slug/` on `https://blog.vurulkan.com`.
+The old date-based routes intentionally have no compatibility redirects.
+
+`sitemap.xml` is the single sitemap template. It includes published canonical posts, the home page and explicitly opted-in information pages (`sitemap: true`, currently About). Category/tag navigation stays crawlable even though it is not included in the sitemap. Sitemap omission is not a `noindex` directive.
+
+Post `lastmod` uses `last_modified_at` when available, otherwise the publication date. The existing Git hook supplies modification metadata for edited posts; rebuilding the website does not stamp every post with the deployment time.
+
+`assets/robots.txt` overrides the theme file at the same source path and renders at `/robots.txt`. It allows public crawling and advertises the canonical sitemap. Do not create a second root robots source: it would conflict with the theme asset's permalink. The theme's `jekyll-sitemap` dependency skips both files because explicit sources already exist.
+
+The artifact gate also rejects duplicate, noncanonical, redirect and `noindex` sitemap entries, malformed modification dates and robots rules that block posts or required assets.
+
 ## Writing
 
 Add Markdown files under `_posts` with title, date (including timezone), description, categories and tags. Keep existing slugs stable when editing a post. For Ansible/Jinja examples, protect literal Liquid-like syntax with Liquid `raw` / `endraw` tags so Jekyll does not evaluate it.
