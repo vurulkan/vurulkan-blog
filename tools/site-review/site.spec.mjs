@@ -18,6 +18,10 @@ for (const theme of ['light', 'dark']) {
         expect(response.status()).toBe(200);
         await page.evaluate(() => document.fonts.ready);
         await expect(page.locator('h1')).toHaveCount(1);
+        if (name === 'topic') {
+          const intro = await page.locator('.topic-description').textContent();
+          expect((await page.locator('meta[name="description"]').getAttribute('content')).trim()).toBe(intro.trim());
+        }
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `${name} overflow`).toBe(true);
         if ([390, 1440].includes(width)) await page.screenshot({ path: path.join(out, 'screenshots', `${name}-${theme}-${width}.png`) });
         if ([375, 1440].includes(width)) {
@@ -106,4 +110,41 @@ test('social_preview_exports_at_1200_by_630', async ({ page }) => {
   await page.goto('/__social-preview/');
   await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: path.join(out, 'social-preview.png') });
+});
+
+test('pwa_updates_an_existing_session_and_a_fresh_session', async ({ browser }) => {
+  const config = path.resolve(import.meta.dirname, '../../_site/assets/js/data/swconf.js');
+  const original = await fs.readFile(config, 'utf8');
+  const oldCache = 'review-old-cache';
+  const newCache = 'review-new-cache';
+  const normal = await browser.newContext({ serviceWorkers: 'allow' });
+  let fresh;
+  try {
+    await fs.writeFile(config, original.replace(/cacheName:\s*'[^']+'/, `cacheName: '${oldCache}'`));
+    const page = await normal.newPage();
+    await page.goto('http://127.0.0.1:4173/');
+    await page.evaluate(() => navigator.serviceWorker.ready);
+    await page.reload();
+    await page.waitForFunction(() => navigator.serviceWorker.controller);
+    await page.evaluate(() => caches.open('review-stale-data').then(cache => cache.put('/stale-test-marker', new Response('old'))));
+    await fs.writeFile(config, original.replace(/cacheName:\s*'[^']+'/, `cacheName: '${newCache}'`));
+    await page.evaluate(async () => (await navigator.serviceWorker.getRegistration()).update());
+    await page.waitForFunction(async () => Boolean((await navigator.serviceWorker.getRegistration())?.waiting));
+    await page.locator('#notification [aria-label="Update"]').click();
+    await expect.poll(() => page.evaluate(() => caches.keys())).toContain(newCache);
+    const keys = await page.evaluate(() => caches.keys());
+    expect(keys).not.toContain(oldCache);
+    expect(keys).not.toContain('review-stale-data');
+    await expect(page.locator('#field-title')).toBeVisible();
+    fresh = await browser.newContext({ serviceWorkers: 'allow' });
+    const freshPage = await fresh.newPage();
+    await freshPage.goto('http://127.0.0.1:4173/');
+    await freshPage.evaluate(() => navigator.serviceWorker.ready);
+    await expect(freshPage.locator('#field-title')).toBeVisible();
+    await expect.poll(() => freshPage.evaluate(() => caches.keys())).toContain(newCache);
+  } finally {
+    await fs.writeFile(config, original);
+    await normal.close();
+    if (fresh) await fresh.close();
+  }
 });
