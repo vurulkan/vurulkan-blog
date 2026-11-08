@@ -73,7 +73,7 @@
   <!-- Resource Hints -->
   {% unless site.assets.self_host.enabled %}
     {% for hint in site.data.origin.cors.resource_hints %}
-      {% if hint.url contains "fonts.google" %}{% continue %}{% endif %}
+      {% if hint.url contains "fonts.googleapis.com" or hint.url contains "fonts.gstatic.com" %}{% continue %}{% endif %}
       {% for link in hint.links %}
         <link rel="{{ link.rel }}" href="{{ hint.url }}" {{ link.opts | join: ' ' }}>
       {% endfor %}

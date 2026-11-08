@@ -18,6 +18,7 @@ for (const theme of ['light', 'dark']) {
         expect(response.status()).toBe(200);
         await page.evaluate(() => document.fonts.ready);
         await expect(page.locator('h1')).toHaveCount(1);
+        if (name === 'article') await expect(page.locator('.content h2 a.anchor').first()).toHaveAttribute('aria-label', /Link to /);
         if (name === 'topic') {
           const intro = await page.locator('.topic-description').textContent();
           expect((await page.locator('meta[name="description"]').getAttribute('content')).trim()).toBe(intro.trim());
@@ -73,6 +74,15 @@ test('search_finds_articles_and_handles_empty_results', async ({ page }) => {
   await page.locator('#search-input').fill('debian');
   await page.locator('#search-results a').filter({ hasText: /Debian/ }).first().click();
   await expect(page).toHaveURL(/posts\/ansible-k8s-ha-cluster-debian\//);
+});
+
+test('heading_links_have_names_and_visible_keyboard_focus', async ({ page }) => {
+  await page.goto(article);
+  const link = page.locator('.content h2 a.anchor').first();
+  await expect(link).toHaveAttribute('aria-label', /Link to /);
+  await link.focus();
+  await expect(link).toBeFocused();
+  await expect(link).toHaveCSS('opacity', '1');
 });
 
 test('keyboard_skip_link_and_mobile_toc_work', async ({ page }) => {

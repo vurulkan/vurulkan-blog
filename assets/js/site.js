@@ -19,3 +19,12 @@ const labelScrollableContent = () => {
 };
 document.fonts.ready.then(labelScrollableContent);
 window.addEventListener('resize', labelScrollableContent);
+const labelHeadingLinks = () => {
+  document.querySelectorAll('.content a.anchor').forEach((link) => {
+    const heading = link.closest('h2, h3, h4, h5, h6');
+    if (heading) link.setAttribute('aria-label', `Link to ${heading.textContent.trim()}`);
+  });
+};
+document.addEventListener('DOMContentLoaded', labelHeadingLinks);
+window.addEventListener('load', labelHeadingLinks);
+labelHeadingLinks();
