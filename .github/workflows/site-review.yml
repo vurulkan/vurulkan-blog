@@ -1,0 +1,43 @@
+name: Site Review
+on:
+  workflow_dispatch:
+  push:
+    branches: [m345-seo-brand-theme]
+permissions:
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: tools/site-review/package-lock.json
+      - run: bundle exec jekyll build --destination _site
+        env:
+          JEKYLL_ENV: production
+      - run: |
+          python3 -B -m unittest discover -s tools -p 'test_*.py'
+          python3 tools/verify_site.py _site
+          python3 tools/verify_metadata.py _site --report review-output/metadata.json
+          bundle exec htmlproofer _site --disable-external
+      - run: npm ci --prefix tools/site-review
+      - run: npx --prefix tools/site-review playwright install --with-deps chromium
+      - name: Review responsive UI and accessibility
+        run: npm test --prefix tools/site-review
+      - name: Lighthouse lab reports
+        if: success()
+        run: node tools/site-review/lighthouse.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: site-review
+          path: review-output

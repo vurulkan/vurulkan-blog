@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes HA Cluster Deployment on Debian Using Ansible"
 date: 2026-11-08 23:30:00 +0300
-last_modified_at: 2026-11-08 23:30:00 +0300
+last_modified_at: 2026-11-09 00:38:58 +0300
 description: "Deploy a highly available Kubernetes cluster on Debian with Ansible, HAProxy, Keepalived and Calico, plus optional Longhorn storage."
 categories: [DevOps, Kubernetes, Automation]
 tags: [k8s, ansible, kubernetes, debian, longhorn]
@@ -10,9 +10,7 @@ published: true
 robots: index, follow
 ---
 
-This document describes how to deploy a highly available (HA) Kubernetes cluster on Debian using Ansible and this repository.
-
-The goal is to provide a repeatable, production‑oriented procedure that can be used by operations and platform teams.
+Build a highly available Kubernetes control plane on Debian 13 using Ansible, HAProxy and Keepalived. This guide covers Debian repositories, sysctl.d configuration and optional Longhorn storage.
 
 
 [View the Debian project on GitHub](https://github.com/vurulkan/ansible-k8s-ha-cluster-debian).
@@ -455,6 +453,16 @@ For ongoing operations:
 
 This document should serve as a baseline guide for deploying and operating a highly available Kubernetes cluster using Ansible on Debian. Adjust the configuration and procedures as needed to align with your organization’s standards and policies.
 
+
+## Debian validation and troubleshooting
+
+On Debian 13, verify that the automation user has `sudo` access and that the HAProxy repository matches the configured branch. Check `apt-cache policy haproxy` before installing packages. Load-balancer sysctl settings belong in `/etc/sysctl.d/99-loadbalancer.conf`; inspect the effective values after applying them.
+
+For join failures, inspect `systemctl status containerd kubelet`, hostname resolution and connectivity to the HA API endpoint. Keep the repository's Debian-specific APT and sysctl configuration rather than substituting the Ubuntu PPA instructions.
+
+Use the supported OS list and component variables in the repository as the deployment baseline. Validate API failover, node readiness, pod networking and optional storage with the versions selected for your environment. These guides do not provide a separate test matrix for every version combination.
+
+For day-to-day visibility after the cluster is ready, see [Kubernetes OpenConsole](/posts/kubernetes-openconsole-dashboard-ui/).
 
 ## Related guides
 

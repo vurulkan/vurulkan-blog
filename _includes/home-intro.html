@@ -1,0 +1,31 @@
+{% if paginator.page == 1 %}
+  <section class="field-intro" aria-labelledby="field-title">
+    <p class="field-eyebrow"><span aria-hidden="true">~/</span> VURULKAN / FIELD NOTES</p>
+    <h1 id="field-title">Infrastructure, one note at a time.</h1>
+    <p class="field-summary">Kubernetes, Linux and automation &mdash; with a few Hackintosh projects along the way.</p>
+    <div class="field-links">
+      <a href="#field-topics" class="field-primary">Explore topics <span aria-hidden="true">&darr;</span></a>
+      <a href="{{ '/about/' | relative_url }}">About the author <span aria-hidden="true">&nearr;</span></a>
+    </div>
+  </section>
+
+  <nav id="field-topics" class="field-topics" aria-label="Explore topics">
+    <a href="{{ '/categories/kubernetes/' | relative_url }}">
+      <span class="topic-code" aria-hidden="true">01 / K8S</span>
+      <strong>Kubernetes</strong>
+      <span>Clusters, operations &amp; recovery</span>
+    </a>
+    <a href="{{ '/categories/devops/' | relative_url }}">
+      <span class="topic-code" aria-hidden="true">02 / OPS</span>
+      <strong>DevOps</strong>
+      <span>Automation &amp; reliable systems</span>
+    </a>
+    <a href="{{ '/categories/hackintosh/' | relative_url }}">
+      <span class="topic-code" aria-hidden="true">03 / LAB</span>
+      <strong>Hackintosh</strong>
+      <span>Hardware notes &amp; working EFIs</span>
+    </a>
+  </nav>
+{% else %}
+  <h1 class="field-page-title">More field notes</h1>
+{% endif %}

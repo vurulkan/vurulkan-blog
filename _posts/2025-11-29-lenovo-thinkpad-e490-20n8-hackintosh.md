@@ -1,6 +1,8 @@
 ---
 title: "Lenovo ThinkPad E490 (20N8) Hackintosh (macOS Monterey + OpenCore 1.0.4)"
 date: 2025-11-29 21:00:00 +0300
+last_modified_at: 2026-11-09 00:38:58 +0300
+description: "OpenCore 1.0.4 notes for a Lenovo ThinkPad E490 running macOS Monterey, including hardware details, working features and important NVRAM limitations."
 categories: [MacOS, Hackintosh]
 tags: [lenovo, macos, hackintosh, opencore]
 toc: true
@@ -15,8 +17,6 @@ robots: index, follow
 >
 > **Important:** On this specific Lenovo E490 model (maybe other ThinkPad models too), performing an **NVRAM reset** may cause the system to fail to boot permanently, potentially requiring motherboard repair or replacement.  
 > **Avoid NVRAM reset** unless you fully understand the consequences.
-
-# 💻 Lenovo ThinkPad E490 (20N8) Hackintosh (macOS Monterey + OpenCore 1.0.4)
 
 **macOS Version:** Monterey (12.x)  
 **OpenCore Version:** 1.0.4  
@@ -159,3 +159,7 @@ Two variants are included in `/OC/Kexts`:
 
     Balanced+Quiet profile recommended for daily use
 
+
+## Related hardware notes
+
+The [HP ZBook Fury 15 G7 guide](/posts/hp-zbook-fury-15-g7-hackintosh/) documents a separate OpenCore configuration and its limitations. Use the EFI and device notes for the exact machine; a working configuration on one model does not establish compatibility with another.

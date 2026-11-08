@@ -5,8 +5,6 @@ order: 4
 sitemap: true
 ---
 
-# About Me
-
 Hey there, I’m **M. Volkan** 👋  
 My tech journey started unusually early — I was one of those lucky kids who had a computer at home from day one.  
 I grew up on **Windows 95, DOS**, and the magical sound of dial-up internet.  

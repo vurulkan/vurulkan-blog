@@ -1,0 +1,19 @@
+---
+layout: page
+---
+{% include lang.html %}
+<div id="page-category">
+  <p class="field-eyebrow">TOPIC / FIELD NOTES</p>
+  <h1>{{ page.title | escape }} <span class="topic-count">{{ page.posts | size }} notes</span></h1>
+  {% assign topic_description = site.data.topic_descriptions[page.title] %}
+  {% if topic_description %}<p class="topic-description">{{ topic_description }}</p>{% endif %}
+  <ul class="content topic-posts ps-0">
+    {% for post in page.posts %}
+      <li>
+        <a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+        <p>{{ post.description | escape }}</p>
+        {% include datetime.html date=post.date class='text-muted small' lang=lang %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>

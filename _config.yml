@@ -47,6 +47,11 @@ social:
 
 avatar: "/assets/img/avatar.png"
 social_preview_image: "/assets/img/preview.png"
+logo: "/assets/img/avatar.png"
+author:
+  name: "Mustafa Volkan Vurulkan"
+  url: "https://vurulkan.com/"
+  twitter: "vurulkan"
 
 
 # ==============================
@@ -217,6 +222,7 @@ exclude:
   - "*.gemspec"
   - docs
   - tools
+  - review-output
   - README.md
   - LICENSE
   - purgecss.js

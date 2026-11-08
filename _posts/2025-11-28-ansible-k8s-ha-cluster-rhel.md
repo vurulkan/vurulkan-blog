@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes HA Cluster Deployment on RHEL Using Ansible"
 date: 2025-11-28 22:00:00 +0300
-last_modified_at: 2026-11-08 23:30:00 +0300
+last_modified_at: 2026-11-09 00:38:58 +0300
 description: "Deploy a highly available Kubernetes cluster on RHEL with Ansible, HAProxy, Keepalived and Calico, plus optional Longhorn storage."
 categories: [DevOps, Kubernetes, Automation]
 tags: [k8s, ansible, kubernetes, rhel, longhorn]
@@ -10,9 +10,7 @@ published: true
 robots: index, follow
 ---
 
-This document describes how to deploy a highly available (HA) Kubernetes cluster on RHEL using Ansible and this repository.
-
-The goal is to provide a repeatable, production‑oriented procedure that can be used by operations and platform teams.
+Build a highly available Kubernetes control plane on RHEL using Ansible, HAProxy and Keepalived. This guide follows RPM-based node preparation, repository-managed component versions and optional Longhorn storage.
 
 Wherever possible, operations that could be handled via Ansible Galaxy roles or collections (for example SELinux management) are implemented explicitly within this project. This is intentional, to ensure that the playbooks remain usable in environments where access to Ansible Galaxy is restricted or not permitted by organizational security policies.
 
@@ -457,6 +455,16 @@ For ongoing operations:
 
 This document should serve as a baseline guide for deploying and operating a highly available Kubernetes cluster using Ansible on RHEL. Adjust the configuration and procedures as needed to align with your organization’s standards and policies.
 
+
+## RHEL validation and troubleshooting
+
+Check repository availability on every RHEL node before package installation. Use `dnf repolist` and `dnf info haproxy` to inspect the enabled RPM repositories and HAProxy package selected by the distribution. The playbooks use RPM version locking; changing a version variable is not an in-place Kubernetes upgrade.
+
+After bootstrap, inspect `systemctl status containerd kubelet` on any node that fails to join, and compare its API endpoint, hostname resolution and cgroup configuration with the inventory. For HAProxy/Keepalived issues, confirm the configured network interface and a unique VRRP ID on the subnet.
+
+Use the supported OS list and component variables in the repository as the deployment baseline. Validate API failover, node readiness, pod networking and optional storage with the versions selected for your environment. These guides do not provide a separate test matrix for every version combination.
+
+For day-to-day visibility after the cluster is ready, see [Kubernetes OpenConsole](/posts/kubernetes-openconsole-dashboard-ui/).
 
 ## Related guides
 

@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes HA Cluster Deployment on Ubuntu Using Ansible"
 date: 2025-11-28 22:00:00 +0300
-last_modified_at: 2026-11-08 23:30:00 +0300
+last_modified_at: 2026-11-09 00:38:58 +0300
 description: "Deploy a highly available Kubernetes cluster on Ubuntu with Ansible, HAProxy, Keepalived and Calico, plus optional Longhorn storage."
 categories: [DevOps, Kubernetes, Automation]
 tags: [k8s, ansible, kubernetes, ubuntu, longhorn]
@@ -10,9 +10,7 @@ published: true
 robots: index, follow
 ---
 
-This document describes how to deploy a highly available (HA) Kubernetes cluster on Ubuntu using Ansible and this repository.
-
-The goal is to provide a repeatable, production‑oriented procedure that can be used by operations and platform teams.
+Build a highly available Kubernetes control plane on Ubuntu using Ansible, HAProxy and Keepalived. This guide covers APT-based node preparation, Ubuntu-specific HAProxy PPA selection and optional Longhorn storage.
 
 
 [View the Ubuntu project on GitHub](https://github.com/vurulkan/ansible-k8s-ha-cluster-ubuntu).
@@ -457,6 +455,16 @@ For ongoing operations:
 
 This document should serve as a baseline guide for deploying and operating a highly available Kubernetes cluster using Ansible on Ubuntu. Adjust the configuration and procedures as needed to align with your organization’s standards and policies.
 
+
+## Ubuntu validation and troubleshooting
+
+Match `haproxy_branch` to the Ubuntu release before running the load-balancer tasks. The repository documents the 3.2 PPA for Ubuntu 24.04/26.04 and 3.0 for 22.04. Use `apt-cache policy haproxy` to verify that the expected PPA and package candidate are available on your release.
+
+If a node fails to join, inspect `systemctl status containerd kubelet`, check hostname resolution and confirm that the node reaches the HA API endpoint. Kubernetes packages are held with `apt-mark hold`; changing `k8s_version` prepares new installations and does not perform a cluster upgrade.
+
+Use the supported OS list and component variables in the repository as the deployment baseline. Validate API failover, node readiness, pod networking and optional storage with the versions selected for your environment. These guides do not provide a separate test matrix for every version combination.
+
+For day-to-day visibility after the cluster is ready, see [Kubernetes OpenConsole](/posts/kubernetes-openconsole-dashboard-ui/).
 
 ## Related guides
 

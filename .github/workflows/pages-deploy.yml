@@ -54,6 +54,7 @@ jobs:
         run: |
           python3 -B -m unittest discover -s tools -p 'test_*.py'
           python3 tools/verify_site.py _site
+          python3 tools/verify_metadata.py _site
 
       - name: Test site
         run: |

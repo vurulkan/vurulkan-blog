@@ -1,14 +1,14 @@
 ---
 title: "Setting Up a Redis Sentinel Cluster on Docker Swarm with External Access"
 date: 2025-12-26 02:00:00 +0300
+last_modified_at: 2026-11-09 00:38:58 +0300
+description: "Run Redis Sentinel on a three-node Docker Swarm cluster with host networking and reachable announce addresses for clients outside the Swarm."
 categories: [DevOps, Docker]
 tags: [redis, docker, swarm, docker swarm]
 toc: true
 published: true
 robots: index, follow
 ---
-
-# Setting Up a Redis Sentinel Cluster on Docker Swarm with External Access
 
 Redis Sentinel works well for high availability, but running it on Docker Swarm introduces a common issue: Sentinel may announce an internal IP that external clients cannot reach. This becomes a problem when applications outside the Swarm try to connect to Sentinel and discover the current Redis master.
 
@@ -254,3 +254,8 @@ master0:name=mymaster,status=ok,address=172.16.207.198:6380,slaves=2,sentinels=3
 2. Ports must be published using host mode.
 3. Services must be pinned with node labels.
 4. Sentinel config files must be mounted with correct permissions.
+## Operational checks
+
+Confirm that clients outside the Swarm can reach every announced Redis and Sentinel address, then test a controlled master failover. Sentinel discovery must return an address reachable by those clients. Keep Redis and Sentinel ports on trusted network paths, and use the authentication and transport settings appropriate to the deployment.
+
+For another data-protection workflow, see [scheduled APISIX ETCD backups](/posts/apisix-etcd-backup-to-remote-server/). HA and backup recovery address different failure cases; verify both for the service you operate.

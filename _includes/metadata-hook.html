@@ -1,0 +1,5 @@
+{% if page.robots %}
+  <meta name="robots" content="{{ page.robots | escape }}">
+{% endif %}
+<meta name="color-scheme" content="light dark">
+<script defer src="{{ '/assets/js/site.js' | relative_url }}"></script>

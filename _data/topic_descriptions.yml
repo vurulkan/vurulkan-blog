@@ -1,0 +1,18 @@
+DevOps: >-
+  Infrastructure notes on automation, high availability and day-to-day operations.
+  Start with the Ansible cluster guides, then explore backups, visibility and data services.
+Kubernetes: >-
+  Build highly available clusters and keep them observable. These guides cover
+  Ansible deployments on RHEL, Ubuntu and Debian, OpenConsole operations and ETCD backups.
+Automation: >-
+  Repeatable infrastructure tasks with Ansible and Kubernetes CronJobs.
+  Configuration, prerequisites and verification steps live alongside the commands.
+Docker: >-
+  Notes on running services in containers, including Redis Sentinel on Docker Swarm
+  and the networking details that matter to clients outside the cluster.
+MacOS: >-
+  Documented macOS installations on non-Apple hardware, with OpenCore configuration,
+  device-specific fixes and explicit limitations for each machine.
+Hackintosh: >-
+  Working notes for the ThinkPad E490 and HP ZBook Fury 15 G7. Hardware differences,
+  OpenCore versions and known limitations are recorded in each guide.
