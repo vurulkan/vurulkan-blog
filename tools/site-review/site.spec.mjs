@@ -86,6 +86,18 @@ test('heading_links_have_names_and_visible_keyboard_focus', async ({ page }) => 
   await expect(link).toHaveCSS('opacity', '1');
 });
 
+test('mobile_navigation_and_code_copy_work', async ({ page, context }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.goto('/');
+  await page.locator('#sidebar-trigger').click();
+  await page.locator('#sidebar a.nav-link[href="/categories/"]').click();
+  await expect(page).toHaveURL(/\/categories\//);
+  await page.goto(article);
+  await page.locator('.code-header button').first().click();
+  await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toContain('10.42.0.11');
+});
+
 test('keyboard_skip_link_and_mobile_toc_work', async ({ page }) => {
   await page.goto('/');
   await page.keyboard.press('Tab');
