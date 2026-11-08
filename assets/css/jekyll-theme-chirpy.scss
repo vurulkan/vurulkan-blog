@@ -131,6 +131,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
   border-radius: 3px;
 }
 .highlight:focus-visible, .table-wrapper:focus-visible { outline: 3px solid var(--field-accent); outline-offset: 3px; }
+.content a.anchor { visibility: visible; }
 .content a.anchor:focus-visible { opacity: 1; }
 .skip-link {
   position: fixed;

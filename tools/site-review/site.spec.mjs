@@ -80,6 +80,7 @@ test('heading_links_have_names_and_visible_keyboard_focus', async ({ page }) => 
   await page.goto(article);
   const link = page.locator('.content h2 a.anchor').first();
   await expect(link).toHaveAttribute('aria-label', /Link to /);
+  await page.keyboard.press('Tab');
   await link.focus();
   await expect(link).toBeFocused();
   await expect(link).toHaveCSS('opacity', '1');
