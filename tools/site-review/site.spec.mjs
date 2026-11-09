@@ -153,11 +153,14 @@ test('pwa_updates_an_existing_session_and_a_fresh_session', async ({ browser }) 
     await fs.writeFile(config, original.replace(/cacheName:\s*'[^']+'/, `cacheName: '${newCache}'`));
     await page.evaluate(async () => (await navigator.serviceWorker.getRegistration()).update());
     await page.waitForFunction(async () => Boolean((await navigator.serviceWorker.getRegistration())?.waiting));
-    await page.locator('#notification [aria-label="Update"]').click();
-    await expect.poll(() => page.evaluate(() => caches.keys())).toContain(newCache);
-    const keys = await page.evaluate(() => caches.keys());
-    expect(keys).not.toContain(oldCache);
-    expect(keys).not.toContain('review-stale-data');
+    await Promise.all([
+      page.waitForEvent('load'),
+      page.locator('#notification [aria-label="Update"]').click()
+    ]);
+    await expect.poll(async () => {
+      const keys = await page.evaluate(() => caches.keys());
+      return { current: keys.includes(newCache), old: keys.includes(oldCache), stale: keys.includes('review-stale-data') };
+    }).toEqual({ current: true, old: false, stale: false });
     await expect(page.locator('#field-title')).toBeVisible();
     fresh = await browser.newContext({ serviceWorkers: 'allow' });
     const freshPage = await fresh.newPage();
