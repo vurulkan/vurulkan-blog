@@ -15,6 +15,7 @@ The `Build and Deploy` workflow is the single publishing path:
 3. Build production HTML into `_site`, with an empty base URL for the custom domain.
 4. Run the artifact-gate regression tests, verify rendered pages, sitemap, canonical URLs and local assets, then run HTML-Proofer.
 5. Upload only `_site` and deploy that artifact to GitHub Pages.
+6. Check the public sitemap, source post inventory, canonical URLs, robots directives, article schema and local page assets; upload `live-verification` evidence. The live check retries briefly for Pages propagation and fails visibly if the public site is incomplete.
 
 `CNAME` preserves the custom domain in the generated site. The source `.nojekyll` marker does not replace the explicit Jekyll build. Publishing this repository root from a branch would serve raw templates and make generated post URLs return 404.
 
@@ -28,6 +29,7 @@ JEKYLL_ENV=production bundle exec jekyll build --destination _site
 python3 -B -m unittest discover -s tools -p 'test_*.py'
 python3 tools/verify_site.py _site
 python3 tools/verify_metadata.py _site --report review-output/metadata.json
+python3 tools/verify_live.py --report review-output/live.json
 bundle exec htmlproofer _site --disable-external
 ```
 

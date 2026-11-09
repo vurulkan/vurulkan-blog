@@ -77,3 +77,21 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Checkout verification tools
+        uses: actions/checkout@v4
+      - name: Verify the public deployment
+        shell: bash
+        run: |
+          for attempt in {1..6}; do
+            if python3 tools/verify_live.py --report review-output/live.json; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 6 ]; then sleep 10; fi
+          done
+          exit 1
+      - name: Upload live verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-verification
+          path: review-output/live.json

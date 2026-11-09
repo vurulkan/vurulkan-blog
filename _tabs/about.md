@@ -3,9 +3,12 @@
 icon: fas fa-info-circle
 order: 4
 sitemap: true
+permalink: /about/
+title: About Mustafa Volkan Vurulkan
+description: "Mustafa Volkan Vurulkan's practical notes on Linux, DevOps, Kubernetes, infrastructure automation and hardware projects, with source repositories and known limitations."
 ---
 
-Hey there, I’m **M. Volkan** 👋  
+Hey there, I’m **Mustafa Volkan Vurulkan (M. Volkan)** 👋
 My tech journey started unusually early — I was one of those lucky kids who had a computer at home from day one.  
 I grew up on **Windows 95, DOS**, and the magical sound of dial-up internet.  
 In **2007**, I met Linux… and let’s just say things were never the same after that.
@@ -87,4 +90,10 @@ If you love Linux, open source, automation, hardware tinkering, or the constant 
 “a better way to do this” — we’ll get along just fine.
 
 You can always reach me at:  
-**mustafa [at] vurulkan.com**
+[mustafa@vurulkan.com](mailto:mustafa@vurulkan.com).
+
+## Sources and corrections
+
+The guides link to their source projects and record versions and known limitations where available. A repository review and a test on a particular machine are different kinds of evidence; check each guide's scope before reusing a configuration.
+
+For the projects behind these notes, visit [my GitHub profile](https://github.com/vurulkan). You can also find me on [LinkedIn](https://www.linkedin.com/in/vurulkan/) and at [vurulkan.com](https://vurulkan.com/). To report an error, email the article URL and the step or version affected.
