@@ -1,7 +1,7 @@
 ---
 title: "Lenovo ThinkPad E490 (20N8) Hackintosh (macOS Monterey + OpenCore 1.0.4)"
 date: 2025-11-29 21:00:00 +0300
-last_modified_at: 2026-11-09 00:38:58 +0300
+last_modified_at: 2026-11-09 17:30:00 +0300
 description: "OpenCore 1.0.4 notes for a Lenovo ThinkPad E490 running macOS Monterey, including hardware details, working features and important NVRAM limitations."
 categories: [MacOS, Hackintosh]
 tags: [lenovo, macos, hackintosh, opencore]
@@ -21,7 +21,7 @@ robots: index, follow
 **macOS Version:** Monterey (12.x)  
 **OpenCore Version:** 1.0.4  
 **Model:** Lenovo ThinkPad E490 (Type: 20N8)  
-**Status:** Fully working daily-driver configuration
+**Status:** Daily-driver configuration with the limitations listed below
 
 [Show project on GitHub](https://github.com/vurulkan/Lenovo-Thinkpad-E490-20N8-Hackintosh){:target="_blank"}
 
@@ -98,8 +98,7 @@ robots: index, follow
 
 ## ⚠️ Known Issues
 
-- **None** — everything works as expected  
-  (Balanced+Quiet CPUFriend profile slightly reduces performance for quieter operation.)  
+- **Balanced+Quiet CPUFriend profile** — slightly reduces performance for quieter operation.
 - **AMD Radeon RX 550X** disabled for compatibility reasons.  
 - **Windows shutdown/restart issue** — If Windows fails to fully shutdown or restart when dual-booting, **disable Fast Startup** in Windows:  
   1. Open **Control Panel → Hardware and Sound → Power Options**  
