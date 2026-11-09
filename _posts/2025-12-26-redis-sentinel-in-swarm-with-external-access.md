@@ -1,5 +1,5 @@
 ---
-title: "Setting Up a Redis Sentinel Cluster on Docker Swarm with External Access"
+title: "Redis Sentinel on Docker Swarm: External Access"
 date: 2025-12-26 02:00:00 +0300
 last_modified_at: 2026-11-09 17:30:00 +0300
 description: "Configure Redis Sentinel on Docker Swarm with host-published ports, reachable replica addresses and master discovery for clients outside the Swarm."
@@ -103,7 +103,7 @@ Sentinel rewrites its configuration as topology changes. Mount the **directory**
 REDIS_UID="$(docker run --rm --entrypoint id redis:7.2-alpine -u redis)"
 REDIS_GID="$(docker run --rm --entrypoint id redis:7.2-alpine -g redis)"
 sudo chown -R "$REDIS_UID:$REDIS_GID" /docker-deployments/redis-cluster/sentinel{1,2,3}
-chmod 750 /docker-deployments/redis-cluster/sentinel{1,2,3}
+sudo chmod 750 /docker-deployments/redis-cluster/sentinel{1,2,3}
 sudo find /docker-deployments/redis-cluster/sentinel{1,2,3} -maxdepth 1 -type f -name sentinel.conf -exec chmod 640 {} +
 ```
 
