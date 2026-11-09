@@ -146,6 +146,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .skip-link:focus { transform: translateY(0); color: var(--field-on-accent); }
 #main-content { min-width: 0; }
 #main-content:focus { outline: none; }
+.no-script-nav { display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; border-bottom: 1px solid var(--field-border); padding: 0.5rem 0; }
+.no-script-nav a { display: inline-flex; align-items: center; min-height: 44px; }
 #sidebar {
   border-right: 1px solid var(--field-border);
   .profile-wrapper { padding-top: 2.8rem; }

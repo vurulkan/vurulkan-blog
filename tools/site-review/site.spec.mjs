@@ -121,6 +121,8 @@ test('article_remains_readable_without_javascript_and_at_200_percent', async ({ 
   await expect(nojs.locator('article > .content')).toContainText('HAProxy');
   await expect(nojs.locator('.content a[href*="github.com"]').first()).toBeVisible();
   expect(await nojs.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+  await nojs.getByRole('navigation', { name: 'Site navigation', exact: true }).getByRole('link', { name: 'Home', exact: true }).click();
+  await expect(nojs.locator('#field-title')).toBeVisible();
   await context.close();
   await page.goto(article);
   await page.addStyleTag({ content: 'html { font-size: 200% !important; }' });
