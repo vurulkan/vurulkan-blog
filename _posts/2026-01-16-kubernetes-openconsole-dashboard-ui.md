@@ -37,7 +37,8 @@ This guide follows the published **2.23** documentation and **2.23.0** image. Th
 List endpoints use a `client-go` informer cache. Live Events stream changes over WebSocket rather than relying on repeated full-page refreshes.
 
 ![OpenConsole admin Overview with cluster usage, pod health and workload restart panels.](/assets/img/posts/openconsole-2.23/overview.en.dark.webp){: width="1440" height="900" loading="lazy" .normal }
-_The administrator Overview brings pod health, usage and restart history together. Screenshot from the OpenConsole documentation._
+
+**Overview:** Pod health, usage and restart history in one view. Screenshot from the OpenConsole documentation.
 
 ### Troubleshooting and observability
 
@@ -175,7 +176,8 @@ Audit records include the actor, action, target cluster, namespace/resource, out
 OpenConsole exposes a REST API described by OpenAPI 3.1 at `/api/openapi.json`. Users create keys from their account menu under **API keys**, selecting a cluster scope, namespaces, permissions and expiry. The secret is displayed once and stored as a hash.
 
 ![OpenConsole API keys page listing scoped keys, their permissions, last use and expiry.](/assets/img/posts/openconsole-2.23/api-keys.en.light.webp){: width="1440" height="900" loading="lazy" .normal }
-_Users manage keys for scripts and agents from their own account. Screenshot from the OpenConsole documentation._
+
+**API keys:** Users manage scoped access for scripts and agents from their own account. Screenshot from the OpenConsole documentation.
 
 A request must fit all of these limits:
 
