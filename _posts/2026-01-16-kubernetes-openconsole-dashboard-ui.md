@@ -1,7 +1,7 @@
 ---
 title: "OpenConsole for Kubernetes: Multi-Cluster Operations and API Access"
 date: 2026-01-16 19:20:00 +0300
-last_modified_at: 2026-11-16 20:30:00 +0300
+last_modified_at: 2026-11-17 00:20:00 +0300
 description: "Run OpenConsole for Kubernetes 2.23 with scoped cluster access, live logs, recorded shells and API keys for scripts and AI agents."
 image:
   path: /assets/img/posts/openconsole-2.23/dashboard-cards.en.light.webp
@@ -21,7 +21,7 @@ The distinction matters: **the current console is not read-only by default at th
 
 [Read the documentation](https://k8sopenconsole.github.io/) · [Türkçe dokümantasyon](https://k8sopenconsole.github.io/tr/) · [Source and releases](https://github.com/vurulkan/kubernetes-openconsole).
 
-This guide follows the published **2.23** documentation and **2.23.0** image. The screenshots come from the documentation project's demo environment; the workloads and users shown are fictional.
+This guide follows the published **2.23** documentation and **2.23.1** image. The screenshots come from the documentation project's demo environment; the workloads and users shown are fictional.
 
 ## What the current console includes
 
@@ -75,10 +75,10 @@ The pod does **not** automatically adopt its mounted ServiceAccount or discover 
 
 ## Choose an image
 
-The published 2.23 documentation pins release `2.23.0`:
+The published 2.23 documentation pins release `2.23.1`:
 
 ```yaml
-image: ghcr.io/vurulkan/kubernetes-openconsole:2.23.0
+image: ghcr.io/vurulkan/kubernetes-openconsole:2.23.1
 ```
 
 Release images support `linux/amd64` and `linux/arm64`. Pin a release for a reproducible installation. `latest` follows published releases; development images use separate `dev-*` tags. Release images include GitHub build-provenance and SBOM attestations; verification commands are in the repository README.
@@ -95,7 +95,7 @@ docker build -t kubernetes-openconsole:local .
 docker run --rm -p 127.0.0.1:8080:8080 \
   -e TIMEZONE=Europe/Istanbul \
   -v kubernetes-openconsole-data:/data \
-  ghcr.io/vurulkan/kubernetes-openconsole:2.23.0
+  ghcr.io/vurulkan/kubernetes-openconsole:2.23.1
 ```
 
 Open `http://localhost:8080`. The named volume preserves the SQLite database and recordings. This starts the console; cluster access is configured through the UI afterwards.
@@ -110,10 +110,10 @@ Use a small Kustomize directory that pins both the release manifests and the ima
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - https://github.com/vurulkan/kubernetes-openconsole//deploy?ref=v2.23.0
+  - https://github.com/vurulkan/kubernetes-openconsole//deploy?ref=v2.23.1
 images:
   - name: ghcr.io/vurulkan/kubernetes-openconsole
-    newTag: "2.23.0"
+    newTag: "2.23.1"
 patches:
   - patch: |-
       apiVersion: apps/v1
@@ -136,8 +136,8 @@ kubectl -n kubernetes-openconsole rollout status deploy/kubernetes-openconsole -
 
 Before applying, review the manifests for your environment:
 
-- The source manifest uses `latest`; the `images` override pins the container to the same release as `ref=v2.23.0`.
-- Keep **exactly one replica** and the **`Recreate` strategy**. In 2.23.0, overlapping pods can open the same SQLite database and lose writes. `Recreate` stops the old pod before starting its replacement, including during a rollout restart.
+- The source manifest uses `latest`; the `images` override pins the container to the same release as `ref=v2.23.1`.
+- Keep **exactly one replica** and the **`Recreate` strategy** (the release manifests use it since 2.23.1; the patch above keeps it explicit). Overlapping pods would open the same SQLite database, and on 2.23.0 that could lose writes. `Recreate` stops the old pod before starting its replacement, including during a rollout restart.
 - The default PVC is 5 Gi and stores both the database and recordings. Plan capacity and backups accordingly.
 - The Service exposes port 80 to container port 8080. Put your own Ingress or Gateway in front of it.
 - The deployment runs without an automatically mounted ServiceAccount token. Cluster credentials are supplied through the UI.
@@ -266,6 +266,6 @@ Backups need the same access restrictions as the cluster credentials. The docume
 - [Kubernetes HA on RHEL](/posts/ansible-k8s-ha-cluster-rhel/)
 - [Kubernetes HA on Debian](/posts/ansible-k8s-ha-cluster-debian/)
 
-Updated on November 15, 2026 against the [published 2.23 documentation at `8839e18`](https://github.com/k8sopenconsole/k8sopenconsole.github.io/tree/8839e180aeb5fb6ea14cf89e6e723b0681fc2e4d/versioned_docs/version-2.23), whose code reference is `v2.23.0`. The site's published version was used rather than its unreleased Next pages. The commands were checked against that documentation; this article update did not deploy or test a live cluster.
+Updated on November 17, 2026 against the [published 2.23 documentation at `22cb78a`](https://github.com/k8sopenconsole/k8sopenconsole.github.io/tree/22cb78ab9519b91ebb63703f395d662b4a3fa2d9/versioned_docs/version-2.23), whose code reference is `v2.23.0`. The site's published version was used rather than its unreleased Next pages. The commands were checked against that documentation; this article update did not deploy or test a live cluster.
 
-Screenshots are reproduced unchanged from the [OpenConsole for Kubernetes documentation project](https://github.com/k8sopenconsole/k8sopenconsole.github.io/tree/8839e180aeb5fb6ea14cf89e6e723b0681fc2e4d/static/img/screens), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). They show the project's fictional demo data. The [full documentation](https://k8sopenconsole.github.io/) remains the reference for deployment details, policy settings and troubleshooting.
+Screenshots are reproduced unchanged from the [OpenConsole for Kubernetes documentation project](https://github.com/k8sopenconsole/k8sopenconsole.github.io/tree/22cb78ab9519b91ebb63703f395d662b4a3fa2d9/static/img/screens), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). They show the project's fictional demo data. The [full documentation](https://k8sopenconsole.github.io/) remains the reference for deployment details, policy settings and troubleshooting.
