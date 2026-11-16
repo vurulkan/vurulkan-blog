@@ -79,5 +79,5 @@ Test recovery with the ETCD version and TLS settings used by your APISIX deploym
 
 ## Related notes
 
-- [Kubernetes OpenConsole](/posts/kubernetes-openconsole-dashboard-ui/) for workload visibility and CronJob/Job logs.
+- [OpenConsole for Kubernetes](/posts/kubernetes-openconsole-dashboard-ui/) for workload visibility and CronJob/Job logs.
 - [Kubernetes HA on Ubuntu](/posts/ansible-k8s-ha-cluster-ubuntu/) for the surrounding cluster deployment.

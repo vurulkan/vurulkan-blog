@@ -1,8 +1,8 @@
 ---
-title: "Kubernetes OpenConsole: Multi-Cluster Operations and API Access"
+title: "OpenConsole for Kubernetes: Multi-Cluster Operations and API Access"
 date: 2026-01-16 19:20:00 +0300
-last_modified_at: 2026-11-15 00:33:23 +0300
-description: "Run Kubernetes OpenConsole 2.23 with scoped cluster access, live logs, recorded shells and API keys for scripts and AI agents."
+last_modified_at: 2026-11-16 20:30:00 +0300
+description: "Run OpenConsole for Kubernetes 2.23 with scoped cluster access, live logs, recorded shells and API keys for scripts and AI agents."
 image:
   path: /assets/img/posts/openconsole-2.23/dashboard-cards.en.light.webp
   alt: "OpenConsole Dashboard showing namespace-scoped pod cards, health, restarts and resource usage."
@@ -13,7 +13,7 @@ published: true
 robots: index, follow
 ---
 
-Kubernetes OpenConsole gives a platform team one place to inspect workloads across several clusters, grant namespace-scoped access and review what users did. Developers and on-call engineers can read logs, investigate failing pods and perform the operations their roles allow, without receiving the clusters' kubeconfigs.
+OpenConsole for Kubernetes (called Kubernetes OpenConsole until 2.23.1) gives a platform team one place to inspect workloads across several clusters, grant namespace-scoped access and review what users did. Developers and on-call engineers can read logs, investigate failing pods and perform the operations their roles allow, without receiving the clusters' kubeconfigs.
 
 The **2.23 documentation** also covers scripts and AI agents. Scoped API keys use the same resource permissions as the web interface, with an additional administrator policy controlling what those keys may reach.
 
@@ -268,4 +268,4 @@ Backups need the same access restrictions as the cluster credentials. The docume
 
 Updated on November 15, 2026 against the [published 2.23 documentation at `8839e18`](https://github.com/k8sopenconsole/k8sopenconsole.github.io/tree/8839e180aeb5fb6ea14cf89e6e723b0681fc2e4d/versioned_docs/version-2.23), whose code reference is `v2.23.0`. The site's published version was used rather than its unreleased Next pages. The commands were checked against that documentation; this article update did not deploy or test a live cluster.
 
-Screenshots are reproduced unchanged from the [Kubernetes OpenConsole documentation project](https://github.com/k8sopenconsole/k8sopenconsole.github.io/tree/8839e180aeb5fb6ea14cf89e6e723b0681fc2e4d/static/img/screens), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). They show the project's fictional demo data. The [full documentation](https://k8sopenconsole.github.io/) remains the reference for deployment details, policy settings and troubleshooting.
+Screenshots are reproduced unchanged from the [OpenConsole for Kubernetes documentation project](https://github.com/k8sopenconsole/k8sopenconsole.github.io/tree/8839e180aeb5fb6ea14cf89e6e723b0681fc2e4d/static/img/screens), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). They show the project's fictional demo data. The [full documentation](https://k8sopenconsole.github.io/) remains the reference for deployment details, policy settings and troubleshooting.

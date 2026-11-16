@@ -465,7 +465,7 @@ If a node fails to join, inspect `systemctl status containerd kubelet`, check ho
 
 Use the supported OS list and component variables in the repository as the deployment baseline. Validate API failover, node readiness, pod networking and optional storage with the versions selected for your environment. These guides do not provide a separate test matrix for every version combination.
 
-For day-to-day visibility after the cluster is ready, see [Kubernetes OpenConsole](/posts/kubernetes-openconsole-dashboard-ui/).
+For day-to-day visibility after the cluster is ready, see [OpenConsole for Kubernetes](/posts/kubernetes-openconsole-dashboard-ui/).
 
 ## Related guides
 
